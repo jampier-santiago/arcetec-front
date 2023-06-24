@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/api';
 
 // Services
 import { CategoriesService } from '../services/categories.service';
+import { AuthService } from '../../auth/auth.service';
 
 // Model
 import { CategoryModel } from 'src/domain/models/category.model';
@@ -20,13 +21,18 @@ export class CategoriesComponent implements OnInit {
 
   constructor(
     private readonly categoriesService: CategoriesService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private readonly authService: AuthService
   ) {
     this.categories = [];
     this.valueForSearch = '';
   }
 
   ngOnInit(): void {
+    this.authService.user$.subscribe((data) => {
+      console.log(`🤣`, data);
+    });
+
     // * Get all categories from the database
     this.categoriesService.getAllCategories();
 

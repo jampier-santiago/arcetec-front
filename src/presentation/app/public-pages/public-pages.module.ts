@@ -7,6 +7,7 @@ import { CategoriesComponent } from './categories/categories.component';
 // Services
 import { CategoriesService } from './services/categories.service';
 import { MessageService } from 'primeng/api';
+import { AuthService } from '../auth/auth.service';
 
 // Modules
 import { ButtonModule } from 'primeng/button';
@@ -16,6 +17,7 @@ import { DataModule } from 'src/data/data.module';
 import { ComponentsModule } from '../components/components.module';
 import { InputTextModule } from 'primeng/inputtext';
 import { SharedModule } from '../shared/shared.module';
+import { AuthModule } from '../auth/auth.module';
 
 @NgModule({
   declarations: [CategoriesComponent],
@@ -28,7 +30,8 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule,
     InputTextModule,
     SharedModule,
+    AuthModule,
   ],
-  providers: [CategoriesService, MessageService],
+  providers: [CategoriesService, MessageService, AuthService],
 })
 export class PublicPagesModule {}

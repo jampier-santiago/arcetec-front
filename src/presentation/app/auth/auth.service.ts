@@ -26,8 +26,10 @@ export class AuthService {
 
   // * Execute the login use case
   login(params: { email: string; password: string }) {
-    return this.loginUseCase
-      .execute(params)
-      .pipe(tap((data: UserEntity | null) => this._user.next(data)));
+    return this.loginUseCase.execute(params).pipe(
+      tap((data: UserEntity | null) => {
+        this._user.next(data);
+      })
+    );
   }
 }

@@ -8,6 +8,9 @@ import { MainLayoutComponent } from './layouts/main-layout/main-layout.component
 // Components
 import { CategoriesComponent } from './public-pages/categories/categories.component';
 
+// Guards
+import { AuthGuard } from './auth/guards/auth.guard';
+
 const routes: Routes = [
   {
     path: '',
@@ -18,6 +21,11 @@ const routes: Routes = [
         path: 'auth',
         loadChildren: () =>
           import('./auth/auth.module').then((m) => m.AuthModule),
+      },
+      {
+        path: 'dashboard/categorias',
+        component: CategoriesComponent,
+        canActivate: [AuthGuard],
       },
     ],
   },

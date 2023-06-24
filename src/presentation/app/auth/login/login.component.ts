@@ -39,7 +39,7 @@ export class LoginComponent {
         })
         .subscribe({
           next: () => {
-            this.router.navigate(['/dashboard']);
+            // this.router.navigate(['/dashboard/categorias']);
           },
           error: (error) => {
             const { error: dataError } = error;
