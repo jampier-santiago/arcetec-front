@@ -1,0 +1,23 @@
+.categories {
+  padding: 20px;
+  box-sizing: border-box;
+  min-height: calc(100vh - 50px - 212px);
+
+  &__title {
+    text-align: center;
+    letter-spacing: 0.2rem;
+  }
+
+  &__body {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 62px;
+
+    & .empty-categories {
+      h3 {
+        margin-top: 30%;
+        text-align: center;
+      }
+    }
+  }
+}

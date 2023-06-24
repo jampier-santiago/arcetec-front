@@ -1,0 +1,15 @@
+<main class="categories">
+  <h1 class="categories__title">Nuestras categorias</h1>
+
+  <section class="categories__body">
+    <article *ngIf="categories.length > 0; else emptyCaetgories">
+      <h3>dsadssa</h3>
+    </article>
+
+    <ng-template #emptyCaetgories>
+      <article class="empty-categories">
+        <h3>No existen categorias creadas en este momento</h3>
+      </article>
+    </ng-template>
+  </section>
+</main>
