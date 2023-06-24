@@ -14,7 +14,7 @@ import { GetAllCategoriesUseCase } from 'src/domain/useCases/get-all-categories.
 import { MakeNewCategoryUseCase } from 'src/domain/useCases/make-new-category.useCases';
 import { UpdateCategoryUseCase } from 'src/domain/useCases/update-category.useCases';
 
-// Implementations
+// * Implementation of the use case to have all the categories of the database
 const getAllCategoriesUseCaseFactory = (userRepo: CategoryRepository) =>
   new GetAllCategoriesUseCase(userRepo);
 export const getAllCategoriesUseCaseProvider = {
@@ -23,32 +23,36 @@ export const getAllCategoriesUseCaseProvider = {
   deps: [CategoryRepository],
 };
 
+// * Implementation of the use case to filter a category from the database
 const findOneCategoryUseCaseFactory = (userRepo: CategoryRepository) =>
-  new GetAllCategoriesUseCase(userRepo);
+  new FindOneCategoryUseCase(userRepo);
 export const findOneCategoryUseCaseProvider = {
   provide: FindOneCategoryUseCase,
   useFactory: findOneCategoryUseCaseFactory,
   deps: [CategoryRepository],
 };
 
+// * Implementation of the use case to create a new category
 const makeNewCategoryUseCaseFactory = (userRepo: CategoryRepository) =>
-  new GetAllCategoriesUseCase(userRepo);
+  new MakeNewCategoryUseCase(userRepo);
 export const makeCategoryUseCaseProvider = {
   provide: MakeNewCategoryUseCase,
   useFactory: makeNewCategoryUseCaseFactory,
   deps: [CategoryRepository],
 };
 
+// * Implementation of the use case to update a category
 const updateCategoryUseCaseFactory = (userRepo: CategoryRepository) =>
-  new GetAllCategoriesUseCase(userRepo);
+  new UpdateCategoryUseCase(userRepo);
 export const updateCategoryUseCaseProvider = {
   provide: UpdateCategoryUseCase,
   useFactory: updateCategoryUseCaseFactory,
   deps: [CategoryRepository],
 };
 
+// * Implementation of the use case to delete a category from the database
 const deleteCategoryUseCaseFactory = (userRepo: CategoryRepository) =>
-  new GetAllCategoriesUseCase(userRepo);
+  new DeleteCategoryUseCase(userRepo);
 export const deleteCategoryseCaseProvider = {
   provide: DeleteCategoryUseCase,
   useFactory: deleteCategoryUseCaseFactory,

@@ -15,6 +15,7 @@ export class MakeNewCategoryUseCase
 {
   constructor(private readonly categoryRepository: CategoryRepository) {}
 
+  // * Implementation of the use case to create a new category
   execute(params: CategoryModel): Observable<CategoryModel> {
     return this.categoryRepository.makeNewCategory(params);
   }

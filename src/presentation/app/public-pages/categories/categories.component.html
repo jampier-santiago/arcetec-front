@@ -1,15 +1,51 @@
 <main class="categories">
   <h1 class="categories__title">Nuestras categorias</h1>
+  <!-- * Toast  -->
+  <p-toast
+    [breakpoints]="{
+      '920px': { width: '100%', top: '0', right: '0', left: '0' }
+    }"
+  ></p-toast>
+  <!-- * Toast  -->
 
   <section class="categories__body">
-    <article *ngIf="categories.length > 0; else emptyCaetgories">
-      <h3>dsadssa</h3>
-    </article>
+    <!-- * Cards with all categories  -->
+    <article
+      *ngIf="categories.length > 0 || valueForSearch; else emptyCaetgories"
+      class="container-cards"
+    >
+      <div class="container-cards__header">
+        <span class="p-float-label">
+          <input pInputText id="id" type="text" [(ngModel)]="valueForSearch" />
+          <label htmlFor="username">Buscar un elemento</label>
+        </span>
 
+        <p-button label="Buscar" (onClick)="findCategory()"></p-button>
+      </div>
+
+      <div class="container-cards__body">
+        <article class="empty-categories" *ngIf="categories.length === 0">
+          <h3>
+            No se encontró ninguna categoría que coincida con la búsqueda.
+          </h3>
+        </article>
+
+        <app-cards
+          *ngFor="let category of categories"
+          [image]="category.image"
+          [title]="category.name"
+          [description]="category.description | cutText : 120"
+        ></app-cards>
+      </div>
+    </article>
+    <!-- * Cards with all categories  -->
+
+    <!-- * Section empty categories  -->
     <ng-template #emptyCaetgories>
       <article class="empty-categories">
         <h3>No existen categorias creadas en este momento</h3>
       </article>
     </ng-template>
+    <!-- * Section empty categories  -->
   </section>
 </main>

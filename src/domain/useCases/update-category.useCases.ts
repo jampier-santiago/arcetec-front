@@ -15,6 +15,7 @@ export class UpdateCategoryUseCase
 {
   constructor(private readonly categoryRepository: CategoryRepository) {}
 
+  // * Implementation of the use case to update a category
   execute(params: Partial<CategoryModel>): Observable<CategoryModel> {
     return this.categoryRepository.updateCategory(params);
   }

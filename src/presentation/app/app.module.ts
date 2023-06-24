@@ -1,6 +1,7 @@
 // Packages
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Modules
 import { AppRoutingModule } from './app-routing.module';
@@ -14,7 +15,13 @@ import { LayoutsModule } from './layouts/layouts.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, PublicPagesModule, LayoutsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    PublicPagesModule,
+    LayoutsModule,
+    BrowserAnimationsModule,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

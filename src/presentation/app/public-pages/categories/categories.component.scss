@@ -1,7 +1,9 @@
+@import "../../../../variables";
+
 .categories {
-  padding: 20px;
+  padding: 1.25rem;
   box-sizing: border-box;
-  min-height: calc(100vh - 50px - 212px);
+  min-height: calc(100vh - 3.125rem - 13.25rem);
 
   &__title {
     text-align: center;
@@ -11,12 +13,54 @@
   &__body {
     width: 100%;
     box-sizing: border-box;
-    margin-top: 62px;
+    margin-top: 3.875rem;
+
+    @media (min-width: $desktop-small) {
+      padding: 32px;
+      box-sizing: border-box;
+    }
+
+    & .container-cards {
+      width: 100%;
+      max-width: 450px;
+      margin: auto;
+
+      @media (min-width: $desktop-small) {
+        max-width: none;
+      }
+
+      &__header {
+        width: 100%;
+        margin-bottom: 4rem;
+        display: flex;
+        gap: 1.25rem;
+        align-items: center;
+      }
+
+      &__body {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 3.25rem;
+
+        @media (min-width: $desktop-small) {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media (min-width: $desktop-medium) {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+    }
 
     & .empty-categories {
       h3 {
         margin-top: 30%;
         text-align: center;
+
+        @media (min-width: $desktop-small) {
+          margin-top: 8%;
+        }
       }
     }
   }

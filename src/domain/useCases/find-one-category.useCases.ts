@@ -15,6 +15,8 @@ export class FindOneCategoryUseCase
 {
   constructor(private readonly categoryRepository: CategoryRepository) {}
 
+  // * Implementation of the use case to filter a category from the database
+  // * You can only filter by gave the category name
   execute(params: { term: string }): Observable<CategoryModel> {
     return this.categoryRepository.findOneCategory(params.term);
   }

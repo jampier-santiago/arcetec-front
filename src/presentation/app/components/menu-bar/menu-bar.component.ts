@@ -1,21 +1,17 @@
 // Packages
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu-bar',
   templateUrl: './menu-bar.component.html',
-  styleUrls: ['./menu-bar.component.scss'],
 })
 export class MenuBarComponent implements OnInit {
+  // * Variables
   items: MenuItem[] = [];
 
-  constructor(private readonly router: Router) {}
-
   ngOnInit(): void {
-    const isLogged = this.router.url.includes('dashboard');
-
+    // * Menu items
     this.items = [
       {
         label: 'Categorias',
@@ -23,9 +19,9 @@ export class MenuBarComponent implements OnInit {
         routerLink: '',
       },
       {
-        label: isLogged ? 'Cerrar secion' : 'Ingresar',
-        icon: `pi pi-fw ${isLogged ? 'pi-sign-out' : 'pi-sign-in'}`,
-        routerLink: isLogged ? '' : 'login',
+        label: 'Ingresar',
+        icon: `pi-sign-in`,
+        routerLink: 'login',
       },
     ];
   }

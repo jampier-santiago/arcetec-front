@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { CategoryModel } from '../models/category.model';
 
 export abstract class CategoryRepository {
+  // * All the functionalities (actions) related to the categories
+
   abstract getAllCategories(): Observable<Array<CategoryModel>>;
   abstract findOneCategory(term: string): Observable<CategoryModel>;
   abstract makeNewCategory(data: CategoryModel): Observable<CategoryModel>;

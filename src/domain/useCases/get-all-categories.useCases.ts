@@ -15,6 +15,7 @@ export class GetAllCategoriesUseCase
 {
   constructor(private readonly categoryRepository: CategoryRepository) {}
 
+  // * Implementation of the use case to have all the categories of the database
   execute(): Observable<Array<CategoryModel>> {
     return this.categoryRepository.getAllCategories();
   }

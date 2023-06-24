@@ -1,6 +1,6 @@
 .footer {
   background-color: var(--highlight-bg);
-  padding: 42px 12px;
+  padding: 2.625rem 0.75rem;
   box-sizing: border-box;
   height: auto;
 
@@ -11,13 +11,13 @@
 
   &__subtitle {
     text-align: center;
-    margin-top: 32px;
+    margin-top: 2rem;
   }
 
   &__email {
     display: block;
     text-align: center;
-    margin-top: 42px;
+    margin-top: 2.625rem;
     font-style: italic;
     text-decoration: underline;
   }
