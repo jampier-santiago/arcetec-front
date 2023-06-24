@@ -1,1 +1,46 @@
-<p>login works!</p>
+<main class="login">
+  <h1 class="login__title">Ingresa a nuestro panel</h1>
+
+  <!-- * Toast  -->
+  <p-toast
+    [breakpoints]="{
+      '920px': { width: '100%', top: '0', right: '0', left: '0' }
+    }"
+  ></p-toast>
+  <!-- * Toast  -->
+
+  <!-- * Form  -->
+  <form [formGroup]="form" class="login__form">
+    <div class="container-inputs">
+      <span class="p-float-label" style="width: 100%">
+        <input
+          pInputText
+          id="id"
+          type="text"
+          formControlName="email"
+          autocomplete="off"
+        />
+        <label htmlFor="username">Escribe tu correo</label>
+      </span>
+
+      <span class="p-float-label" style="width: 100%">
+        <p-password
+          [toggleMask]="true"
+          [feedback]="false"
+          formControlName="password"
+          id="password"
+        ></p-password>
+        <label htmlFor="password">Escribe tu contraseña</label>
+      </span>
+    </div>
+
+    <p-button
+      label="Ingresar"
+      pRipple
+      class="button"
+      (click)="onSubmit()"
+      styleClass="p-button-lg"
+    ></p-button>
+  </form>
+  <!-- * Form  -->
+</main>

@@ -16,12 +16,12 @@ export class MenuBarComponent implements OnInit {
       {
         label: 'Categorias',
         icon: 'pi pi-fw pi-folder-open',
-        routerLink: '',
+        routerLink: '/',
       },
       {
         label: 'Ingresar',
         icon: `pi-sign-in`,
-        routerLink: 'login',
+        routerLink: '/auth/login',
       },
     ];
   }

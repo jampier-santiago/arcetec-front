@@ -12,7 +12,14 @@ const routes: Routes = [
   {
     path: '',
     component: MainLayoutComponent,
-    children: [{ path: '', component: CategoriesComponent }],
+    children: [
+      { path: '', component: CategoriesComponent },
+      {
+        path: 'auth',
+        loadChildren: () =>
+          import('./auth/auth.module').then((m) => m.AuthModule),
+      },
+    ],
   },
   {
     path: '**',

@@ -7,12 +7,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { CategoryRepository } from 'src/domain/repositories/category.repository';
 import { CategoryImplementationRepository } from './repositories/category/category-implementation.repository';
 
+import { UserRepository } from 'src/domain/repositories/user.repository';
+import { UserImplementationRepository } from './repositories/auth/auth-implementation.repository';
+
 // UseCases
 import { DeleteCategoryUseCase } from 'src/domain/useCases/delete-category.useCases';
 import { FindOneCategoryUseCase } from 'src/domain/useCases/find-one-category.useCases';
 import { GetAllCategoriesUseCase } from 'src/domain/useCases/get-all-categories.useCases';
 import { MakeNewCategoryUseCase } from 'src/domain/useCases/make-new-category.useCases';
 import { UpdateCategoryUseCase } from 'src/domain/useCases/update-category.useCases';
+
+import { LoginUseCase } from 'src/domain/useCases/login.useCase';
 
 // * Implementation of the use case to have all the categories of the database
 const getAllCategoriesUseCaseFactory = (userRepo: CategoryRepository) =>
@@ -59,6 +64,15 @@ export const deleteCategoryseCaseProvider = {
   deps: [CategoryRepository],
 };
 
+// * Implementation of the use case, the login of a user
+const loginUseCaseFactory = (userRepo: UserRepository) =>
+  new LoginUseCase(userRepo);
+export const loginseUCaseProvider = {
+  provide: LoginUseCase,
+  useFactory: loginUseCaseFactory,
+  deps: [UserRepository],
+};
+
 @NgModule({
   imports: [CommonModule, HttpClientModule],
   providers: [
@@ -67,7 +81,9 @@ export const deleteCategoryseCaseProvider = {
     makeCategoryUseCaseProvider,
     updateCategoryUseCaseProvider,
     deleteCategoryseCaseProvider,
+    loginseUCaseProvider,
     { provide: CategoryRepository, useClass: CategoryImplementationRepository },
+    { provide: UserRepository, useClass: UserImplementationRepository },
   ],
 })
 export class DataModule {}

@@ -16,8 +16,13 @@
     >
       <div class="container-cards__header">
         <span class="p-float-label">
-          <input pInputText id="id" type="text" [(ngModel)]="valueForSearch" />
-          <label htmlFor="username">Buscar un elemento</label>
+          <input
+            pInputText
+            id="valueForSearch"
+            type="text"
+            [(ngModel)]="valueForSearch"
+          />
+          <label htmlFor="valueForSearch">Buscar un elemento</label>
         </span>
 
         <p-button label="Buscar" (onClick)="findCategory()"></p-button>

@@ -1,0 +1,54 @@
+@import "../../../../variables";
+
+.login {
+  width: 100%;
+  padding: 1.125rem;
+  box-sizing: border-box;
+  min-height: calc(100vh - 3.125rem - 13.25rem);
+
+  @media (min-width: $desktop-small) {
+    padding: 3.75rem;
+  }
+
+  &__title {
+    text-align: center;
+  }
+
+  &__form {
+    width: 100%;
+    padding: 2.5rem;
+    max-width: max-content;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 3.25rem;
+    background-color: var(--primary-color-text);
+    box-sizing: border-box;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+
+    @media (min-width: $desktop-small) {
+      margin-top: 10%;
+    }
+
+    & .container-inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+
+      @media (min-width: $desktop-small) {
+        flex-direction: row;
+      }
+
+      & input {
+        width: 100%;
+      }
+    }
+
+    & .button {
+      margin-top: 0.625rem;
+    }
+  }
+}
