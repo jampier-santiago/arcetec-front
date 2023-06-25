@@ -6,7 +6,7 @@ import { CategoriesComponent } from './categories/categories.component';
 
 // Services
 import { CategoriesService } from './services/categories.service';
-import { MessageService } from 'primeng/api';
+import { MessageService, ConfirmationService } from 'primeng/api';
 
 // Modules
 import { ButtonModule } from 'primeng/button';
@@ -17,6 +17,7 @@ import { ComponentsModule } from '../components/components.module';
 import { InputTextModule } from 'primeng/inputtext';
 import { SharedModule } from '../shared/shared.module';
 import { StoreModule } from '@ngrx/store';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @NgModule({
   declarations: [CategoriesComponent],
@@ -30,7 +31,8 @@ import { StoreModule } from '@ngrx/store';
     InputTextModule,
     SharedModule,
     StoreModule,
+    ConfirmDialogModule,
   ],
-  providers: [CategoriesService, MessageService],
+  providers: [CategoriesService, MessageService, ConfirmationService],
 })
 export class PublicPagesModule {}

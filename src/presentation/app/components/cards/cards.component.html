@@ -6,7 +6,17 @@
   <p>
     {{ description }}
   </p>
-  <ng-template pTemplate="footer">
-    <!-- <p-button label="Save" icon="pi pi-check"></p-button> -->
+
+  <!-- * Buttons  -->
+  <ng-template pTemplate="footer" *ngIf="isLogged">
+    <p-button label="Editar" icon="pi pi-file-edit"></p-button>
+    <p-button
+      label="Eliminar"
+      icon="pi pi-trash"
+      styleClass="p-button-danger"
+      (click)="clickDelete()"
+      class="button"
+    ></p-button>
   </ng-template>
+  <!-- * Buttons  -->
 </p-card>

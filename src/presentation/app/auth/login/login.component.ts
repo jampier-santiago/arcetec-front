@@ -11,6 +11,9 @@ import { addData } from '../redux/auth.actions';
 import { AuthService } from '../auth.service';
 import { MessageService } from 'primeng/api';
 
+// Entity
+import { UserEntity } from '../../../../data/repositories/auth/entities/user.entity';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -27,7 +30,7 @@ export class LoginComponent {
     private readonly authService: AuthService,
     private readonly messageService: MessageService,
     private readonly router: Router,
-    private readonly store: Store<{ auth: any }>
+    private readonly store: Store<{ auth: UserEntity }>
   ) {}
 
   // * form submission

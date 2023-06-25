@@ -8,6 +8,10 @@
   ></p-toast>
   <!-- * Toast  -->
 
+  <!-- * Confirm Dialog  -->
+  <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
+  <!-- * Confirm Dialog  -->
+
   <section class="categories__body">
     <!-- * Cards with all categories  -->
     <article
@@ -40,6 +44,8 @@
           [image]="category.image"
           [title]="category.name"
           [description]="category.description | cutText : 120"
+          [id]="category.id"
+          (actDelete)="showModalForDelete($event)"
         ></app-cards>
       </div>
     </article>

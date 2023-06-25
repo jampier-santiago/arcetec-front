@@ -54,7 +54,10 @@ export class CategoryImplementationRepository extends CategoryRepository {
   }
 
   // * Request to the database, to remove an item from the database
-  deleteCategory(id: string): Observable<string> {
-    return this.http.delete<string>(`${environment.back_api}/categories/${id}`);
+  deleteCategory(id: string, token: string): Observable<string> {
+    return this.http.delete<string>(
+      `${environment.back_api}/categories/${id}`,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
   }
 }

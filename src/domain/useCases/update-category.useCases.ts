@@ -11,12 +11,16 @@ import { CategoryRepository } from '../repositories/category.repository';
 import { CategoryModel } from '../models/category.model';
 
 export class UpdateCategoryUseCase
-  implements UseCase<Partial<CategoryModel>, CategoryModel>
+  implements
+    UseCase<{ data: Partial<CategoryModel>; token: string }, CategoryModel>
 {
   constructor(private readonly categoryRepository: CategoryRepository) {}
 
   // * Implementation of the use case to update a category
-  execute(params: Partial<CategoryModel>): Observable<CategoryModel> {
-    return this.categoryRepository.updateCategory(params);
+  execute(params: {
+    data: Partial<CategoryModel>;
+    token: string;
+  }): Observable<CategoryModel> {
+    return this.categoryRepository.updateCategory(params.data, params.token);
   }
 }
