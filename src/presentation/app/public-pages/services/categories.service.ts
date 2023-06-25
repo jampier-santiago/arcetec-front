@@ -1,18 +1,20 @@
 // Packages
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 // Entity
 import { UserEntity } from '../../../../data/repositories/auth/entities/user.entity';
 
 // Models
 import { CategoryModel } from 'src/domain/models/category.model';
-import { BehaviorSubject, Observable } from 'rxjs';
 
 // UseCases
 import { GetAllCategoriesUseCase } from 'src/domain/useCases/get-all-categories.useCases';
 import { FindOneCategoryUseCase } from '../../../../domain/useCases/find-one-category.useCases';
 import { DeleteCategoryUseCase } from 'src/domain/useCases/delete-category.useCases';
+import { UploadFileUseCase } from 'src/domain/useCases/upload-image.useCase';
+import { MakeNewCategoryUseCase } from 'src/domain/useCases/make-new-category.useCases';
 
 @Injectable({
   providedIn: 'root',
@@ -27,10 +29,12 @@ export class CategoriesService {
     private readonly getAllCategoriesUseCase: GetAllCategoriesUseCase,
     private readonly findOneCategoryUseCase: FindOneCategoryUseCase,
     private readonly deleteCategoryUseCase: DeleteCategoryUseCase,
+    private readonly uploadFileUseCase: UploadFileUseCase,
+    private readonly makeNewCategoryUseCase: MakeNewCategoryUseCase,
     private readonly store: Store<{ auth: UserEntity }>
   ) {
     store.subscribe(({ auth }) => {
-      this.token = auth.token || '';
+      this.token = auth.token ?? '';
     });
   }
 
@@ -63,5 +67,15 @@ export class CategoriesService {
   // * Method to delete the category
   deleteCategory(id: string): Observable<string> {
     return this.deleteCategoryUseCase.execute({ id, token: this.token });
+  }
+
+  // * Method to upload the image to cloudinary
+  changeImageCategory(data: any): Observable<{ url: string }> {
+    return this.uploadFileUseCase.execute(data);
+  }
+
+  // * Method to create new categories, the method returns the url where from cloudinary
+  makeNewCategory(data: CategoryModel) {
+    return this.makeNewCategoryUseCase.execute({ data, token: this.token });
   }
 }

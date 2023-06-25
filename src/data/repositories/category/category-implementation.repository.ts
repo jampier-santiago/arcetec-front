@@ -38,18 +38,26 @@ export class CategoryImplementationRepository extends CategoryRepository {
   }
 
   // * Request to the database, to create a category
-  makeNewCategory(data: CategoryModel): Observable<CategoryModel> {
+  makeNewCategory(
+    data: CategoryModel,
+    token: string
+  ): Observable<CategoryModel> {
     return this.http.post<CategoryEntity>(
       `${environment.back_api}/categories`,
-      data
+      data,
+      { headers: { Authorization: `Bearer ${token}` } }
     );
   }
 
   // * Request to the database, to update a category
-  updateCategory(data: Partial<CategoryModel>): Observable<CategoryModel> {
+  updateCategory(
+    data: Partial<CategoryModel>,
+    token: string
+  ): Observable<CategoryModel> {
     return this.http.patch<CategoryEntity>(
       `${environment.back_api}/categories`,
-      data
+      data,
+      { headers: { Authorization: `Bearer ${token}` } }
     );
   }
 

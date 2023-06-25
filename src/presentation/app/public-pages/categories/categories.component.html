@@ -1,5 +1,10 @@
 <main class="categories">
   <h1 class="categories__title">Nuestras categorias</h1>
+
+  <!-- * Modal loader  -->
+  <app-loader *ngIf="showLoader"></app-loader>
+  <!-- * Modal loader  -->
+
   <!-- * Toast  -->
   <p-toast
     [breakpoints]="{
@@ -11,6 +16,69 @@
   <!-- * Confirm Dialog  -->
   <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
   <!-- * Confirm Dialog  -->
+
+  <!-- * Sidebar  -->
+  <p-sidebar [(visible)]="showFormModal" position="left" class="form-category">
+    <h2>
+      {{
+        modalForEditCategory
+          ? "Edita tu categoría."
+          : "Crea una nueva categoría."
+      }}
+    </h2>
+
+    <form [formGroup]="form">
+      <p-image
+        [src]="imageForForm"
+        alt="Image"
+        width="250"
+        [preview]="true"
+        class="image"
+      ></p-image>
+
+      <!-- * Select image  -->
+      <p-button
+        label="Selecciona un archivo"
+        (onClick)="uploadImage()"
+      ></p-button>
+      <input
+        type="file"
+        #fileInput
+        style="display: none"
+        accept="image/*"
+        (change)="handleFileInput($event)"
+      />
+      <!-- * Select image  -->
+
+      <!-- * name -->
+      <span class="p-float-label" style="width: 100%">
+        <input
+          pInputText
+          id="name"
+          type="text"
+          formControlName="name"
+          autocomplete="off"
+        />
+        <label htmlFor="username">Nombre de la categoría.</label>
+      </span>
+      <!-- * name -->
+
+      <!-- * Description  -->
+      <span class="p-float-label" style="width: 100%">
+        <textarea
+          rows="5"
+          cols="30"
+          pInputTextarea
+          formControlName="description"
+        ></textarea>
+        <label htmlFor="username">Descripción de la categoría.</label>
+      </span>
+      <!-- * Description  -->
+
+      <p-button label="Guardar" (onClick)="onSubmit()"></p-button>
+    </form>
+  </p-sidebar>
+  <!-- * Sidebar  -->
 
   <section class="categories__body">
     <!-- * Cards with all categories  -->
@@ -30,6 +98,12 @@
         </span>
 
         <p-button label="Buscar" (onClick)="findCategory()"></p-button>
+        <p-button
+          label="Agregar una nueva categoría"
+          styleClass="p-button-raised p-button-text"
+          (onClick)="handleFormModal('make')"
+          *ngIf="isLogged"
+        ></p-button>
       </div>
 
       <div class="container-cards__body">
@@ -44,7 +118,7 @@
           [image]="category.image"
           [title]="category.name"
           [description]="category.description | cutText : 120"
-          [id]="category.id"
+          [id]="category.id || ''"
           (actDelete)="showModalForDelete($event)"
         ></app-cards>
       </div>

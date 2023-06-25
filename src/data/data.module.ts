@@ -10,6 +10,9 @@ import { CategoryImplementationRepository } from './repositories/category/catego
 import { UserRepository } from 'src/domain/repositories/user.repository';
 import { UserImplementationRepository } from './repositories/auth/auth-implementation.repository';
 
+import { FileRepository } from 'src/domain/repositories/file.respository';
+import { FileImplementationRepository } from './repositories/files/file-implementation.repository';
+
 // UseCases
 import { DeleteCategoryUseCase } from 'src/domain/useCases/delete-category.useCases';
 import { FindOneCategoryUseCase } from 'src/domain/useCases/find-one-category.useCases';
@@ -18,6 +21,8 @@ import { MakeNewCategoryUseCase } from 'src/domain/useCases/make-new-category.us
 import { UpdateCategoryUseCase } from 'src/domain/useCases/update-category.useCases';
 
 import { LoginUseCase } from 'src/domain/useCases/login.useCase';
+
+import { UploadFileUseCase } from 'src/domain/useCases/upload-image.useCase';
 
 // * Implementation of the use case to have all the categories of the database
 const getAllCategoriesUseCaseFactory = (userRepo: CategoryRepository) =>
@@ -67,10 +72,19 @@ export const deleteCategoryseCaseProvider = {
 // * Implementation of the use case, the login of a user
 const loginUseCaseFactory = (userRepo: UserRepository) =>
   new LoginUseCase(userRepo);
-export const loginseUCaseProvider = {
+export const loginseUseCaseProvider = {
   provide: LoginUseCase,
   useFactory: loginUseCaseFactory,
   deps: [UserRepository],
+};
+
+// *
+const uploadFileUseCaseFactory = (userRepo: FileRepository) =>
+  new UploadFileUseCase(userRepo);
+export const uploadFileUseProvider = {
+  provide: UploadFileUseCase,
+  useFactory: uploadFileUseCaseFactory,
+  deps: [FileRepository],
 };
 
 @NgModule({
@@ -81,9 +95,11 @@ export const loginseUCaseProvider = {
     makeCategoryUseCaseProvider,
     updateCategoryUseCaseProvider,
     deleteCategoryseCaseProvider,
-    loginseUCaseProvider,
+    loginseUseCaseProvider,
+    uploadFileUseProvider,
     { provide: CategoryRepository, useClass: CategoryImplementationRepository },
     { provide: UserRepository, useClass: UserImplementationRepository },
+    { provide: FileRepository, useClass: FileImplementationRepository },
   ],
 })
 export class DataModule {}

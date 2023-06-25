@@ -4,6 +4,7 @@
   padding: 1.25rem;
   box-sizing: border-box;
   min-height: calc(100vh - 3.125rem - 13.25rem);
+  position: relative;
 
   &__title {
     text-align: center;
@@ -16,13 +17,13 @@
     margin-top: 3.875rem;
 
     @media (min-width: $desktop-small) {
-      padding: 32px;
+      padding: 2rem;
       box-sizing: border-box;
     }
 
     & .container-cards {
       width: 100%;
-      max-width: 450px;
+      max-width: 28.125rem;
       margin: auto;
 
       @media (min-width: $desktop-small) {
@@ -33,6 +34,7 @@
         width: 100%;
         margin-bottom: 4rem;
         display: flex;
+        flex-wrap: wrap;
         gap: 1.25rem;
         align-items: center;
       }
@@ -62,6 +64,22 @@
           margin-top: 8%;
         }
       }
+    }
+  }
+
+  & .form-category form {
+    display: flex;
+    flex-direction: column;
+    gap: 2.625rem;
+    margin-top: 3.25rem;
+    overflow-y: auto;
+
+    & input {
+      width: 100%;
+    }
+
+    & .image {
+      margin: auto;
     }
   }
 }
