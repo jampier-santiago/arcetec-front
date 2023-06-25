@@ -1,27 +1,27 @@
-# ArcetecFront
+# PRUEBA TECNICA DEV FRONT ANGULAR.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.5.
+Este repositorio contiene el código del frontend de esta prueba técnica.
 
-## Development server
+Las tecnologias a utilizar para este desarrollo son:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Angular js
+- Nest js
+- Mongo DB
 
-## Code scaffolding
+## Pasos para correr este proyecto
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. Instalar las dependencieas del proyecto `$ npm i`
 
-## Build
+1. Agregar las variables de entorno.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. Colocar a correr el back
 
-## Running unit tests
+```
+https://github.com/jampier-santiago/arcetec-back
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+3. Correr el front end del proyecto
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```
+$ npm start
+```
