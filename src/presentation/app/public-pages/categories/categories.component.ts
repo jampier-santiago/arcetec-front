@@ -161,8 +161,12 @@ export class CategoriesComponent implements OnInit {
             description: data.description,
           });
         },
-        error: (error) => {
-          error;
+        error: () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error en el servidor, inténtelo nuevamente.',
+          });
         },
       });
     }
