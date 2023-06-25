@@ -2,6 +2,10 @@
 import { Component } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+
+// Actions
+import { addData } from '../redux/auth.actions';
 
 // Services
 import { AuthService } from '../auth.service';
@@ -22,7 +26,8 @@ export class LoginComponent {
   constructor(
     private readonly authService: AuthService,
     private readonly messageService: MessageService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly store: Store<{ auth: any }>
   ) {}
 
   // * form submission
@@ -38,8 +43,9 @@ export class LoginComponent {
           password: password ?? '',
         })
         .subscribe({
-          next: () => {
-            // this.router.navigate(['/dashboard/categorias']);
+          next: (data) => {
+            this.store.dispatch(addData(data!!));
+            this.router.navigate(['/dashboard/categorias']);
           },
           error: (error) => {
             const { error: dataError } = error;

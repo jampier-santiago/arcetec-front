@@ -4,10 +4,15 @@ import { MessageService } from 'primeng/api';
 
 // Services
 import { CategoriesService } from '../services/categories.service';
-import { AuthService } from '../../auth/auth.service';
 
 // Model
 import { CategoryModel } from 'src/domain/models/category.model';
+
+// Redux
+import { Store } from '@ngrx/store';
+
+// Entities
+import { UserEntity } from '../../../../data/repositories/auth/entities/user.entity';
 
 @Component({
   selector: 'app-categories',
@@ -22,17 +27,17 @@ export class CategoriesComponent implements OnInit {
   constructor(
     private readonly categoriesService: CategoriesService,
     private messageService: MessageService,
-    private readonly authService: AuthService
+    private readonly store: Store<{ auth: UserEntity }>
   ) {
     this.categories = [];
     this.valueForSearch = '';
+
+    this.store.subscribe((state) => {
+      console.log(state);
+    });
   }
 
   ngOnInit(): void {
-    this.authService.user$.subscribe((data) => {
-      console.log(`🤣`, data);
-    });
-
     // * Get all categories from the database
     this.categoriesService.getAllCategories();
 

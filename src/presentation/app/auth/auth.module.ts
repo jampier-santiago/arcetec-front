@@ -14,6 +14,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { PasswordModule } from 'primeng/password';
 import { RouterModule } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
 
 // Services
 import { MessageService } from 'primeng/api';
@@ -32,6 +33,7 @@ import { AuthService } from './auth.service';
     ButtonModule,
     PasswordModule,
     RouterModule,
+    StoreModule,
   ],
   providers: [MessageService, AuthService],
 })
