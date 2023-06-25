@@ -15,6 +15,7 @@ import { FindOneCategoryUseCase } from '../../../../domain/useCases/find-one-cat
 import { DeleteCategoryUseCase } from 'src/domain/useCases/delete-category.useCases';
 import { UploadFileUseCase } from 'src/domain/useCases/upload-image.useCase';
 import { MakeNewCategoryUseCase } from 'src/domain/useCases/make-new-category.useCases';
+import { UpdateCategoryUseCase } from 'src/domain/useCases/update-category.useCases';
 
 @Injectable({
   providedIn: 'root',
@@ -31,6 +32,7 @@ export class CategoriesService {
     private readonly deleteCategoryUseCase: DeleteCategoryUseCase,
     private readonly uploadFileUseCase: UploadFileUseCase,
     private readonly makeNewCategoryUseCase: MakeNewCategoryUseCase,
+    private readonly updateCategoryUseCase: UpdateCategoryUseCase,
     private readonly store: Store<{ auth: UserEntity }>
   ) {
     store.subscribe(({ auth }) => {
@@ -64,6 +66,11 @@ export class CategoriesService {
     });
   }
 
+  // *
+  getDataCategory(id: string): Observable<CategoryModel> {
+    return this.findOneCategoryUseCase.execute({ term: id });
+  }
+
   // * Method to delete the category
   deleteCategory(id: string): Observable<string> {
     return this.deleteCategoryUseCase.execute({ id, token: this.token });
@@ -77,5 +84,10 @@ export class CategoriesService {
   // * Method to create new categories, the method returns the url where from cloudinary
   makeNewCategory(data: CategoryModel) {
     return this.makeNewCategoryUseCase.execute({ data, token: this.token });
+  }
+
+  // * Method to update a category
+  updateCategory(id: string, data: Partial<CategoryModel>) {
+    return this.updateCategoryUseCase.execute({ id, data, token: this.token });
   }
 }

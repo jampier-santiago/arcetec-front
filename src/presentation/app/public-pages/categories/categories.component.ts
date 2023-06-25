@@ -24,6 +24,7 @@ export class CategoriesComponent implements OnInit {
   // * Variables
   private templateImage: string =
     'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAADgCAMAAAAt85rTAAAAM1BMVEX////O0NLP0dPS1Nb19fb8/Pz5+fr39/jt7u/Z29zp6uvU1tfz8/P///7Y2dvn6Ong4uJDV6wKAAADYklEQVR4nO3b6W6rMBCGYTaDWQrc/9WWBEKMzWpBGar3kc6PEzVRPnliD2AHAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACCKSpNOZksdare7I00kbV7n+fvfWdqmujvVSLXhJfLs7mSDi/KFYSkjob4qXzeGIn6J+XUBQ313uE4SXRgwvztdMFZoXJe22H3FEdmmAeP07nhjwEa5i56zLjqSRXUfMLk73jfgyR87BBSwGF4UMJceUFW60JX/NJ/LLlFV1K/pIioL34hDQAFL/VzArB7nQd9uRPQIpqUx03smlBxQTXub2qtKJQe0m1OvfktwQGU3p15DKC5gMb6QxlZAr35LcECn+458VmvBAav/HjBzStTnWwoOqEo74MZvsJh7UUzAHyegc4+mXf+EZnYdEXO5NBPQmmWi9VZGR2E8s45IDtiNiWn9QiqL5sdYdMBJka7nU7X77rch4P1XE7MBg+Izk5azM8hXu1TG9a756Q/MBwzSIi/jut26HCw+4+zcAZUesCs+lW72oNV3ybTfLz/gDmbXGlnTyX8IOL3ssIr0oQET8wtbDcF0un1mQBUb9+Lt6+JpkT4y4Ksm208lus80SrNIHxnwXZOfrmXmoZRZpE8M2JgxZp+aGl23mIDu5dLiHw41Gelg6ampUaRiAqq9AY3fXLX4UHHsun8eFzD93uwOY13PhJsWafmwgGox0tSY6GkBd+/E+BTpwwI2K5Eswwc9K+CRnSZRn+lRASv7RuKqvut+UsDUvo+44d0JCA9ofi/nYcym1/0L2QF1bDRdx7eyvT5LXEDz5m13pR6N/z8wgX683is5YF+Tw5D6bNWTHtC8akgOTaDPCDiOWZcw9dqpJzug8fSsOT6BCgxYTAOaVw2hT31KD3jG/mb9uj0lNGCx8r2PBPwRGvBY17kSUOgIOjtIvAPKHEHPSfM5AZtoa0f2DqHgEk0qa+N15UFrnUodwTM/9r8HlLfQN8snBHrumQL3HIJBzAh+euvNycM5E+IcEzFPksR9lz63g+avZVce7dnYJPU3LjtdF8o4nOVunzyP33bv0112gLC8fyNXT5/TgtpqKfm6taIpN/uvo2Itoz57auWg3G6Tji3JJOUDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAguAXLpIvOW/ZAVEAAAAASUVORK5CYII=';
+  private idEditCategory: string = '';
 
   categories: Array<CategoryModel>;
   valueForSearch: string;
@@ -148,6 +149,24 @@ export class CategoriesComponent implements OnInit {
   // * Modal state handler
   handleFormModal(type: 'edit' | 'make', id?: string) {
     this.modalForEditCategory = type === 'edit';
+
+    if (type === 'edit') {
+      this.categoriesService.getDataCategory(id ?? '').subscribe({
+        next: (data) => {
+          this.idEditCategory = id ?? '';
+          this.imageForForm = data.image;
+
+          this.form.setValue({
+            name: data.name,
+            description: data.description,
+          });
+        },
+        error: (error) => {
+          error;
+        },
+      });
+    }
+
     this.showFormModal = true;
   }
 
@@ -165,41 +184,9 @@ export class CategoriesComponent implements OnInit {
         image: this.imageForForm,
       };
 
-      // * Send the information to the backend
-      this.categoriesService.makeNewCategory(data).subscribe({
-        next: () => {
-          this.showFormModal = false;
-
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Creacion exitosa',
-            detail: 'La categoria fue creada con exito',
-          });
-
-          this.categoriesService.getAllCategories();
-        },
-        error: (error) => {
-          // * There is no token or it has already expired
-          if (error.status === 401) {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Error en la creación',
-              detail: 'No esta autorizado para crear categorias',
-            });
-
-            return;
-          }
-
-          // * the name is repeated
-          if (error.error.message === 'Element exist in db') {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Error en la creación',
-              detail: 'Ya existe otra categoria con este nombre',
-            });
-          }
-        },
-      });
+      this.modalForEditCategory
+        ? this.updateCategory(data)
+        : this.makeCategory(data);
 
       return;
     }
@@ -208,6 +195,89 @@ export class CategoriesComponent implements OnInit {
       severity: 'error',
       summary: 'Error',
       detail: 'Todos los campos son obligatorios',
+    });
+  }
+
+  // * Method to create a new category
+  makeCategory(data: CategoryModel) {
+    // * Send the information to the backend
+    this.categoriesService.makeNewCategory(data).subscribe({
+      next: () => {
+        this.showFormModal = false;
+
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Creacion exitosa',
+          detail: 'La categoria fue creada con exito',
+        });
+
+        this.categoriesService.getAllCategories();
+
+        this.form.reset();
+        this.imageForForm = this.templateImage;
+      },
+      error: (error) => {
+        // * There is no token or it has already expired
+        if (error.status === 401) {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error en la creación',
+            detail: 'No esta autorizado para crear categorias',
+          });
+
+          return;
+        }
+
+        // * the name is repeated
+        if (error.error.message === 'Element exist in db') {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error en la creación',
+            detail: 'Ya existe otra categoria con este nombre',
+          });
+        }
+      },
+    });
+  }
+
+  // * Method to update a category
+  updateCategory(data: CategoryModel) {
+    // * Send the information to the backend
+    this.categoriesService.updateCategory(this.idEditCategory, data).subscribe({
+      next: () => {
+        this.showFormModal = false;
+
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Actualizacion exitosa',
+          detail: 'La categoria fue actualizada con exito',
+        });
+
+        this.form.reset();
+        this.imageForForm = this.templateImage;
+        this.categoriesService.getAllCategories();
+      },
+      error: (error) => {
+        // * There is no token or it has already expired
+        if (error.status === 401) {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error en la actualización.',
+            detail: 'No está autorizado para actualizar categorías.',
+          });
+
+          return;
+        }
+
+        // * the name is repeated
+        if (error.error.message === 'Element exist in db') {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error en la actualización.',
+            detail: 'Ya existe otra categoría con este nombre.',
+          });
+        }
+      },
     });
   }
 

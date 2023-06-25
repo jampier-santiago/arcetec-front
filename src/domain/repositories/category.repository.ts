@@ -14,6 +14,7 @@ export abstract class CategoryRepository {
     token: string
   ): Observable<CategoryModel>;
   abstract updateCategory(
+    id: string,
     data: Partial<CategoryModel>,
     token: string
   ): Observable<CategoryModel>;

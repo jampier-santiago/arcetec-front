@@ -34,7 +34,7 @@ export class MenuBarComponent implements OnInit {
         },
         {
           label: auth.token ? 'Cerrar sesion' : 'Ingresar',
-          icon: auth.token ? `pi-sign-out` : `pi-sign-in`,
+          icon: auth.token ? `pi pi-fw pi-sign-out` : `pi pi-fw pi-sign-in`,
           routerLink: auth.token ? '/' : '/auth/login',
           command: () => {
             if (this.router.url.includes('dashboard')) {

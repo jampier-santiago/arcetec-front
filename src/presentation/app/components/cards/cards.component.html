@@ -1,6 +1,8 @@
-<p-card [header]="title">
+<p-card [header]="title" class="card" [style]="{ height: '479px' }">
   <ng-template pTemplate="header">
-    <img alt="Card" [src]="image" />
+    <div class="container-image">
+      <img alt="Card" [src]="image" />
+    </div>
   </ng-template>
 
   <p>
@@ -9,7 +11,12 @@
 
   <!-- * Buttons  -->
   <ng-template pTemplate="footer" *ngIf="isLogged">
-    <p-button label="Editar" icon="pi pi-file-edit"></p-button>
+    <p-button
+      label="Editar"
+      icon="pi pi-file-edit"
+      (click)="clickEdit()"
+    ></p-button>
+
     <p-button
       label="Eliminar"
       icon="pi pi-trash"

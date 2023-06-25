@@ -18,9 +18,14 @@ export class UpdateCategoryUseCase
 
   // * Implementation of the use case to update a category
   execute(params: {
+    id: string;
     data: Partial<CategoryModel>;
     token: string;
   }): Observable<CategoryModel> {
-    return this.categoryRepository.updateCategory(params.data, params.token);
+    return this.categoryRepository.updateCategory(
+      params.id,
+      params.data,
+      params.token
+    );
   }
 }

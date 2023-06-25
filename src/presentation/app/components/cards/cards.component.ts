@@ -18,6 +18,7 @@ export class CardsComponent {
   @Input('id') id: string = '';
 
   @Output() actDelete: EventEmitter<string> = new EventEmitter();
+  @Output() actEdit: EventEmitter<string> = new EventEmitter();
 
   isLogged: boolean = false;
 
@@ -29,5 +30,9 @@ export class CardsComponent {
 
   clickDelete() {
     this.actDelete.emit(this.id);
+  }
+
+  clickEdit() {
+    this.actEdit.emit(this.id);
   }
 }

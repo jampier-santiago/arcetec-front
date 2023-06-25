@@ -51,11 +51,12 @@ export class CategoryImplementationRepository extends CategoryRepository {
 
   // * Request to the database, to update a category
   updateCategory(
+    id: string,
     data: Partial<CategoryModel>,
     token: string
   ): Observable<CategoryModel> {
     return this.http.patch<CategoryEntity>(
-      `${environment.back_api}/categories`,
+      `${environment.back_api}/categories/${id}`,
       data,
       { headers: { Authorization: `Bearer ${token}` } }
     );

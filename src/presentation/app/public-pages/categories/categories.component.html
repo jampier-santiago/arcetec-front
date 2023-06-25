@@ -120,6 +120,7 @@
           [description]="category.description | cutText : 120"
           [id]="category.id || ''"
           (actDelete)="showModalForDelete($event)"
+          (actEdit)="handleFormModal('edit', $event)"
         ></app-cards>
       </div>
     </article>
@@ -129,6 +130,12 @@
     <ng-template #emptyCaetgories>
       <article class="empty-categories">
         <h3>No existen categorias creadas en este momento</h3>
+        <p-button
+          label="Agregar una nueva categoría"
+          styleClass="p-button-raised p-button-text"
+          (onClick)="handleFormModal('make')"
+          *ngIf="isLogged"
+        ></p-button>
       </article>
     </ng-template>
     <!-- * Section empty categories  -->
